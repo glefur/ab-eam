@@ -1,5 +1,16 @@
 # AB-EAM Logbook - Development Plan
 
+## 📋 Document Purpose
+
+**This document is dedicated exclusively to project planning and progress tracking for AB-EAM.**
+
+- ✅ **Allowed content**: Phase planning, tasks, progress tracking, step validation
+- ❌ **Forbidden content**: Architectural details, design decisions, technical specifications, implementation details
+
+For architectural and design aspects, refer to the `ARCHITECTURE.md` file.
+
+---
+
 ## Phase 1: Backend Setup and Infrastructure
 
 ### 1.1 Project Initialization

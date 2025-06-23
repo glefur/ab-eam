@@ -1,5 +1,16 @@
 # AB-EAM Architecture (Early Adopter Management)
 
+## 🏗️ Document Purpose
+
+**This document describes the architecture and design decisions for the AB-EAM project.**
+
+- ✅ **Allowed content**: General architecture, design patterns, architectural decisions, design principles, technical structure
+- ❌ **Forbidden content**: Activity tracking, implementation details, task planning, step validation
+
+For progress tracking and planning, refer to the `LOGBOOK.md` file.
+
+---
+
 ## Overview
 
 AB-EAM is a web application designed to simplify the management of Early Adopter programs within the company. The architecture follows a modular approach with clear separation between backend and frontend.
@@ -172,8 +183,9 @@ The application uses a relational database with the following main entities:
 tests/
 ├── setup.ts              # Test environment setup
 ├── unit/                 # Unit tests
-│   ├── services/         # Service layer tests
+│   ├── models/           # Model validation tests
 │   ├── repositories/     # Data access layer tests
+│   ├── services/         # Service layer tests
 │   └── utils/           # Utility function tests
 ├── integration/          # Integration tests
 │   ├── api/             # API endpoint tests
