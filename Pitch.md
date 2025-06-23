@@ -17,6 +17,8 @@ Managing these programs is not particularly easy, especially for employees in co
 
 1. Any user can request to be registered in the application. When a user without an account arrives on the identification page, they can enter their email and request to be registered. This will create a registration request that can be reviewed by a Product People, validated (or not) and if applicable associated with a role either Product People or Client Manager
 
+2. **IMPORTANT: NO COMPLEX AUTHENTICATION SYSTEM** - Once a Product People has approved a registration request, the user can simply "log in" by entering their email address. If the user exists in the system, a session starts immediately. No password, no JWT, no complex authentication flow. Just email-based session management.
+
 ### Product People
 
 1. As a product person, I want to be able to declare an Early Adopter program by describing mainly the feature considered, a brief description as well as the window in which the program will be included
@@ -59,6 +61,14 @@ Managing these programs is not particularly easy, especially for employees in co
 - Packageable and deployable in Docker
 - Full REST API
 - Development in TDD mode
+
+## Session Management (NOT Authentication)
+
+**CRITICAL: This application does NOT implement authentication.**
+- No passwords, no JWT tokens, no OAuth, no complex auth flows
+- Simple email-based session: user enters email → if approved user exists → session starts
+- Session management only, no authentication complexity
+- This is an internal company tool, not a public application requiring security
 
 # Process
 

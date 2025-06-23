@@ -61,56 +61,61 @@
 ### 2.2 Data Access Layer (DAO)
 - [ ] Create Repository interface
 - [ ] Implement UserRepository with SQLite
-- [ ] CRUD methods for users
-- [ ] Unit tests for UserRepository
+- [ ] Implement RegistrationRequestRepository with SQLite
+- [ ] CRUD methods for users and registration requests
+- [ ] Unit tests for repositories
 
 ### 2.3 Service Layer
 - [ ] Create UserService
+- [ ] Create RegistrationRequestService
 - [ ] Business logic for user management
+- [ ] Business logic for registration request workflow
 - [ ] Data validation
-- [ ] Registration request handling
-- [ ] Unit tests for UserService
+- [ ] Unit tests for services
 
 ### 2.4 API Controllers
 - [ ] Create UserController
+- [ ] Create RegistrationRequestController
 - [ ] REST endpoints for users
+- [ ] REST endpoints for registration requests
 - [ ] Input parameter validation
 - [ ] HTTP response handling
 - [ ] Integration tests for APIs
-
-### 2.5 Registration Requests
-- [ ] Model for registration requests
-- [ ] Service for request management
-- [ ] API to submit request
-- [ ] API to approve/reject request
-- [ ] Tests for registration requests
 
 ## Phase 3: Program Management (Backend)
 
 ### 3.1 Models and Interfaces
 - [ ] Define Program interface
-- [ ] Create Program model
+- [ ] Create Program model with lifecycle management
 - [ ] Define EnrollmentRequest interface
+- [ ] Create EnrollmentRequest model
 - [ ] Define Client interface
+- [ ] Create Client model with activity tracking
 - [ ] Define ContactUser interface
+- [ ] Create ContactUser model
+- [ ] Unit tests for all models
 
 ### 3.2 DAO for Programs
 - [ ] Implement ProgramRepository
 - [ ] Implement EnrollmentRequestRepository
 - [ ] Implement ClientRepository
+- [ ] Implement ContactUserRepository
 - [ ] Unit tests for repositories
 
 ### 3.3 Services for Programs
-- [ ] Create ProgramService
+- [ ] Create ProgramService with lifecycle management
 - [ ] Create EnrollmentRequestService
-- [ ] Create ClientService
+- [ ] Create ClientService with activity tracking
+- [ ] Create ContactUserService
 - [ ] Business logic for program management
+- [ ] Business logic for enrollment workflow
 - [ ] Unit tests for services
 
 ### 3.4 Controllers for Programs
 - [ ] Create ProgramController
 - [ ] Create EnrollmentRequestController
 - [ ] Create ClientController
+- [ ] Create ContactUserController
 - [ ] Complete REST endpoints
 - [ ] Integration tests
 
@@ -138,20 +143,21 @@
 ### 4.4 User Management Pages
 - [ ] User registration request page
 - [ ] User management for Product People
-- [ ] Request approval/rejection interface
+- [ ] Registration request approval/rejection interface
 
 ### 4.5 Product People Pages
 - [ ] Product People dashboard
-- [ ] Program creation/editing
+- [ ] Program creation/editing interface
+- [ ] Program lifecycle management (staging → run → archived)
 - [ ] Enrollment request management
-- [ ] Client management
-- [ ] User management
+- [ ] Client activity tracking interface
+- [ ] User management interface
 
 ### 4.6 Client Manager Pages
 - [ ] Client Manager dashboard
-- [ ] Available programs list
-- [ ] Client enrollment request
-- [ ] Request tracking
+- [ ] Available programs list and search
+- [ ] Client enrollment request form
+- [ ] Request tracking interface
 
 ## Phase 5: Testing and Quality
 
