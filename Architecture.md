@@ -59,6 +59,14 @@ AB-EAM is a web application designed to simplify the management of Early Adopter
 - Dependency injection
 - Centralized configuration
 
+#### 6. Model Pattern with Validation
+- **Base Model Class**: Abstract base class providing common validation methods
+- **Strict TypeScript**: All optional properties explicitly typed with `| undefined`
+- **Business Rule Validation**: Models enforce business rules beyond simple type checking
+- **Immutable Creation**: Static factory methods for creating new instances
+- **Database Conversion**: Methods to convert between domain objects and database records
+- **JSON Serialization**: Standardized serialization/deserialization
+
 ### Frontend
 
 #### 1. Component Pattern
@@ -76,110 +84,41 @@ AB-EAM is a web application designed to simplify the management of Early Adopter
 - Authentication and authorization
 - Theme and configuration
 
+## Model Design Principles
+
+### Validation Strategy
+- **Centralized Validation**: All validation logic in model classes
+- **Fail Fast**: Validation errors thrown immediately with descriptive messages
+- **Business Rules**: Complex business logic enforced at model level
+- **Type Safety**: Strict TypeScript configuration with `exactOptionalPropertyTypes: true`
+
+### Model Lifecycle
+- **Creation**: Static factory methods with validation
+- **Updates**: Instance methods that validate after changes
+- **Persistence**: Conversion methods for database/JSON formats
+- **Status Management**: Helper methods for state transitions
+
+### Type Safety Approach
+- **Explicit Optionals**: All optional properties use `| undefined` type
+- **Enum Usage**: Strict enums for status and role values
+- **Interface Contracts**: Clear contracts between layers
+- **Database Mapping**: Explicit mapping between domain and database types
+
 ## Database Management
 
 ### Migration System
-The application implements a robust migration system for database schema management:
-
-#### Migration Manager (`MigrationManager`)
-- **Version Control**: Tracks migration versions in a dedicated `migrations` table
-- **Automatic Execution**: Applies pending migrations on application startup
-- **Rollback Support**: Supports rolling back the last applied migration
-- **Transaction Safety**: Each migration runs within a database transaction
-- **Status Tracking**: Provides migration status and pending count
-
-#### Migration Structure
-```typescript
-interface Migration {
-  version: number;      // Sequential version number
-  name: string;         // Descriptive migration name
-  up: string;          // SQL to apply the migration
-  down?: string;       // SQL to rollback the migration (optional)
-}
-```
-
-#### Migration Features
-- **Automatic Initialization**: Creates migrations table if it doesn't exist
-- **Version Sorting**: Automatically sorts migrations by version number
-- **Error Handling**: Rollback on migration failure
-- **Logging**: Detailed logging of migration operations
-- **Status Queries**: Get current version and pending migrations
-
-#### Migration Commands
-- `migrate()`: Apply all pending migrations
-- `rollback()`: Rollback the last migration
-- `getStatus()`: Get current migration status
-- `getCurrentVersion()`: Get current database version
-- `getPendingMigrations()`: Get list of pending migrations
+The application implements a robust migration system for database schema management with version control, automatic execution, rollback support, and transaction safety.
 
 ### Database Schema
 
-The following tables and relations are implemented in the database schema:
+The application uses a relational database with the following main entities:
 
-### users
-- `id` (TEXT, PRIMARY KEY): Unique user ID (UUID)
-- `email` (TEXT, UNIQUE, NOT NULL): User email
-- `first_name` (TEXT, NOT NULL): First name
-- `last_name` (TEXT, NOT NULL): Last name
-- `role` (TEXT, NOT NULL): 'PRODUCT_PEOPLE' or 'CLIENT_MANAGER'
-- `status` (TEXT, NOT NULL, default 'PENDING'): 'PENDING', 'ACTIVE', 'INACTIVE'
-- `created_at` (DATETIME): Creation date
-- `updated_at` (DATETIME): Update date
-
-### programs
-- `id` (TEXT, PRIMARY KEY): Program ID (UUID)
-- `title` (TEXT, NOT NULL): Program title
-- `description` (TEXT): Program description
-- `creator_id` (TEXT, NOT NULL): FK to `users(id)`
-- `stakeholders` (TEXT): JSON array of user IDs
-- `start_date` (DATETIME): Estimated start date
-- `end_date` (DATETIME): Estimated end date
-- `status` (TEXT, NOT NULL, default 'PENDING'): 'PENDING', 'LIVE', 'STOPPED', 'ARCHIVED'
-- `created_at` (DATETIME): Creation date
-- `updated_at` (DATETIME): Update date
-
-### contact_users
-- `id` (TEXT, PRIMARY KEY): Contact user ID (UUID)
-- `first_name` (TEXT, NOT NULL): First name
-- `last_name` (TEXT, NOT NULL): Last name
-- `email` (TEXT, NOT NULL): Email
-- `created_at` (DATETIME): Creation date
-
-### enrollment_requests
-- `id` (TEXT, PRIMARY KEY): Request ID (UUID)
-- `program_id` (TEXT, NOT NULL): FK to `programs(id)`
-- `client_name` (TEXT, NOT NULL): Client name
-- `account_ids` (TEXT): JSON array of account IDs
-- `motivation` (TEXT): Motivation
-- `status` (TEXT, NOT NULL, default 'PENDING'): 'PENDING', 'APPROVED', 'REJECTED'
-- `requested_by` (TEXT, NOT NULL): FK to `users(id)`
-- `created_at` (DATETIME): Creation date
-- `updated_at` (DATETIME): Update date
-
-### enrollment_request_contact_users
-- `enrollment_request_id` (TEXT, FK): FK to `enrollment_requests(id)`
-- `contact_user_id` (TEXT, FK): FK to `contact_users(id)`
-- PRIMARY KEY (`enrollment_request_id`, `contact_user_id`)
-
-### clients
-- `id` (TEXT, PRIMARY KEY): Client ID (UUID)
-- `program_id` (TEXT, NOT NULL): FK to `programs(id)`
-- `enrollment_request_id` (TEXT, NOT NULL): FK to `enrollment_requests(id)`
-- `account_ids` (TEXT): JSON array of account IDs
-- `is_active` (BOOLEAN, NOT NULL, default 1): Client active in the program
-- `enrolled_at` (DATETIME): Enrollment date
-- `updated_at` (DATETIME): Update date
-
-### client_contact_users
-- `client_id` (TEXT, FK): FK to `clients(id)`
-- `contact_user_id` (TEXT, FK): FK to `contact_users(id)`
-- PRIMARY KEY (`client_id`, `contact_user_id`)
-
-### migrations
-- `id` (INTEGER, PRIMARY KEY AUTOINCREMENT): Migration record ID
-- `version` (INTEGER): Migration version
-- `name` (TEXT): Migration name
-- `applied_at` (DATETIME): When migration was applied
+- **Users**: System users with roles (Product People, Client Manager) and status management
+- **Registration Requests**: User registration workflow with approval/rejection process
+- **Programs**: Early Adopter programs with lifecycle management
+- **Enrollment Requests**: Client enrollment in programs
+- **Clients**: Enrolled clients with activity tracking
+- **Contact Users**: Client contact information
 
 #### Indexes
 - Indexes are created on key fields for performance (email, status, role, foreign keys, etc.)
@@ -241,12 +180,6 @@ tests/
 │   └── database/        # Database integration tests
 └── fixtures/            # Test data and fixtures
 ```
-
-### Migration Testing
-- **Database Setup**: In-memory SQLite for tests
-- **Migration Testing**: Automatic migration application in test environment
-- **Data Isolation**: Each test gets a clean database state
-- **Rollback Testing**: Verify migration rollback functionality
 
 ## Performance
 

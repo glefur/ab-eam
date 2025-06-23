@@ -43,10 +43,20 @@
 ## Phase 2: User Management (Backend)
 
 ### 2.1 Models and Interfaces
-- [ ] Define User interface
-- [ ] Create User model with validation
-- [ ] Define TypeScript types
-- [ ] Create enums for roles and statuses
+- [x] Define User interface with strict TypeScript types
+- [x] Create User model with comprehensive validation
+- [x] Define RegistrationRequest interface and model
+- [x] Create BaseModel abstract class for common validation
+- [x] Implement business rule validation (email format, role constraints, etc.)
+- [x] Add static factory methods for model creation
+- [x] Implement database conversion methods (toDatabase/fromDatabase)
+- [x] Add JSON serialization/deserialization
+- [x] Create utility methods (getFullName, isActive, etc.)
+- [x] Implement status management methods (activate, deactivate)
+- [x] Add comprehensive unit tests for User model (7 tests passing)
+- [x] Add comprehensive unit tests for RegistrationRequest model (17 tests passing)
+- [x] Configure strict TypeScript with exactOptionalPropertyTypes
+- [x] Create centralized type exports
 
 ### 2.2 Data Access Layer (DAO)
 - [ ] Create Repository interface
