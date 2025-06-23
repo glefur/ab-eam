@@ -59,11 +59,11 @@
 - [x] Create centralized type exports
 
 ### 2.2 Data Access Layer (DAO)
-- [ ] Create Repository interface
-- [ ] Implement UserRepository with SQLite
-- [ ] Implement RegistrationRequestRepository with SQLite
-- [ ] CRUD methods for users and registration requests
-- [ ] Unit tests for repositories
+- [x] Create Repository interface
+- [x] Implement UserRepository with SQLite
+- [x] Implement RegistrationRequestRepository with SQLite
+- [x] CRUD methods for users and registration requests
+- [x] Unit tests for repositories
 
 ### 2.3 Service Layer
 - [ ] Create UserService
